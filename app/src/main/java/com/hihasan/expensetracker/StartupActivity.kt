@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+
+import com.hihasan.InternetConnectiivity;
 
 class StartupActivity: AppCompatActivity()
 {
@@ -16,13 +19,11 @@ class StartupActivity: AppCompatActivity()
 
         checkConnection()
 
-
-
-
     }
 
     private fun checkConnection() {
-        if (isOnline()==true){
+        var online= InternetConnectiivity().isOnline()
+        if (online==true){
             val i=Intent(applicationContext,MainActivity::class.java)
             startActivity(i)
         }
@@ -35,14 +36,5 @@ class StartupActivity: AppCompatActivity()
 
     }
 
-    protected fun isOnline(): Boolean {
-        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val netInfo = cm.activeNetworkInfo
-        return if (netInfo != null && netInfo.isConnectedOrConnecting) {
-            true
-        } else {
-            false
-        }
-    }
 
 }
